@@ -183,6 +183,7 @@ public class BuilderLoaderFrame extends JFrame {
 			return;
 		}
 		saveData();
+		setVisible(false);
 		new BuilderConfig(map, img);
 	}
 
