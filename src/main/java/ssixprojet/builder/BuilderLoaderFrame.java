@@ -1,6 +1,7 @@
 package ssixprojet.builder;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -75,7 +76,20 @@ public class BuilderLoaderFrame extends JFrame {
 	public BuilderLoaderFrame() {
 		super("Atlas map builder - Load files");
 		setSize(600, 350);
-		JPanel panel = new JPanel(null);
+		JPanel panel = new JPanel(null) {
+
+			private static final long serialVersionUID = -2220014140205140899L;
+
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(Color.WHITE);
+				g.fillRect(0, 0, getWidth(), getHeight());
+				g.drawImage(BuilderConfig.ICO, getWidth() - 266, getHeight() - 266, 256, 256, this);
+				g.setColor(new Color(0x80ffffff, true));
+				g.fillRect(getWidth() - 266, getHeight() - 266, 256, 256);
+			}
+		};
 
 		PreBuilderData data = loadData();
 
