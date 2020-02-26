@@ -76,7 +76,7 @@ public class BuilderLoaderFrame extends JFrame {
 		super("Atlas map builder - Load files");
 		setSize(600, 350);
 		JPanel panel = new JPanel(null);
-		
+
 		PreBuilderData data = loadData();
 
 		imageLabel = new JLabel("");
@@ -99,7 +99,8 @@ public class BuilderLoaderFrame extends JFrame {
 
 		JButton imageSelector = new JButton("Open file...");
 		imageSelector.setBounds(420, 80, 160, 30);
-		imageSelector.addActionListener(new FileLoaderAction(imageField, "Image", "png image", ".png"));
+		imageSelector
+				.addActionListener(new FileLoaderAction(imageField, "Open background file...", "png image", ".png"));
 		panel.add(imageSelector);
 
 		mapField = new JTextField(data.lastMap);
@@ -110,7 +111,7 @@ public class BuilderLoaderFrame extends JFrame {
 
 		JButton mapSelector = new JButton("Open file...");
 		mapSelector.setBounds(420, 170, 160, 30);
-		mapSelector.addActionListener(new FileLoaderAction(mapField, "Map file", "map file", ".json"));
+		mapSelector.addActionListener(new FileLoaderAction(mapField, "Open map file...", "map file", ".json"));
 		panel.add(mapSelector);
 
 		JButton openLoader = new JButton("Launch");
@@ -204,7 +205,8 @@ public class BuilderLoaderFrame extends JFrame {
 	private void saveData() {
 		try (FileWriter w = new FileWriter(CONFIG_FILE)) {
 			GSON.toJson(new PreBuilderData(imageField.getText(), mapField.getText()), w);
-		} catch (IOException e) {}
+		} catch (IOException e) {
+		}
 	}
 
 	private void setImageLabel(String error) {
