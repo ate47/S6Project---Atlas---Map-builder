@@ -25,7 +25,6 @@ public class MapPanel extends JPanel {
 
 	public MapPanel(BuilderConfig cfg) {
 		this.cfg = cfg;
-		setSize(800, 600);
 		setOpaque(false);
 	}
 }
