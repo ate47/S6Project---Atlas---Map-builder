@@ -76,9 +76,9 @@ public class BuilderLoaderFrame extends JFrame {
 		super("Atlas map builder - Load files");
 		setSize(600, 350);
 		JPanel panel = new JPanel(null);
-
-		PreBuilderData data = loadData();
 		
+		PreBuilderData data = loadData();
+
 		imageLabel = new JLabel("");
 		imageLabel.setBounds(20, 40, 400, 30);
 		imageLabel.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -130,6 +130,10 @@ public class BuilderLoaderFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setContentPane(panel);
 	}
+
+	/**
+	 * load the image and the map file to create a {@link BuilderConfig}
+	 */
 	public void showBuilderFrame() {
 		boolean error = false;
 
@@ -182,6 +186,9 @@ public class BuilderLoaderFrame extends JFrame {
 		new BuilderConfig(map, img);
 	}
 
+	/**
+	 * @return files names from the config file or null if an error occured
+	 */
 	private PreBuilderData loadData() {
 		try (FileReader r = new FileReader(CONFIG_FILE)) {
 			return GSON.fromJson(r, PreBuilderData.class);
@@ -190,6 +197,9 @@ public class BuilderLoaderFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * save current files names to the config file
+	 */
 	private void saveData() {
 		try (FileWriter w = new FileWriter(CONFIG_FILE)) {
 			GSON.toJson(new PreBuilderData(imageField.getText(), mapField.getText()), w);
