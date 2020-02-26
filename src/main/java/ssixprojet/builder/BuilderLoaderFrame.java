@@ -185,7 +185,7 @@ public class BuilderLoaderFrame extends JFrame {
 		}
 		saveData();
 		setVisible(false);
-		new BuilderConfig(map, img);
+		new BuilderConfig(map, img, mapJson);
 	}
 
 	/**
@@ -205,8 +205,7 @@ public class BuilderLoaderFrame extends JFrame {
 	private void saveData() {
 		try (FileWriter w = new FileWriter(CONFIG_FILE)) {
 			GSON.toJson(new PreBuilderData(imageField.getText(), mapField.getText()), w);
-		} catch (IOException e) {
-		}
+		} catch (IOException e) {}
 	}
 
 	private void setImageLabel(String error) {

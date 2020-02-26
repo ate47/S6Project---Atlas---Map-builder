@@ -1,6 +1,7 @@
 package ssixprojet.builder;
 
 import java.awt.Image;
+import java.io.File;
 
 import javax.imageio.ImageIO;
 import lombok.Data;
@@ -9,10 +10,10 @@ import ssixprojet.common.GameMap;
 @Data
 public class BuilderConfig {
 	public static final Image ICO;
-	
+
 	static {
 		Image ico;
-		
+
 		try {
 			ico = ImageIO.read(BuilderConfig.class.getResourceAsStream("/ico.png"));
 		} catch (Exception e) {
@@ -20,14 +21,19 @@ public class BuilderConfig {
 		}
 		ICO = ico;
 	}
+	private File mapFile;
 	private GameMap map;
 	private Image background;
 	private BuilderFrame frame;
-	public BuilderConfig(GameMap map, Image background) {
+
+	public BuilderConfig(GameMap map, Image background, File mapFile) {
 		this.map = map;
 		this.background = background;
+		this.mapFile = mapFile;
 		this.frame = new BuilderFrame(this);
 	}
-	
-	
+
+	public void saveMap() {
+		map.saveMap(mapFile);
+	}
 }

@@ -7,19 +7,19 @@ import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JToolBar;
 
 import ssixprojet.builder.tool.Tool;
+import ssixprojet.builder.tool.ToolSave;
 import ssixprojet.builder.tool.ToolWall;
 
 public class BuilderFrame extends JFrame {
 	private static final long serialVersionUID = -5711038942503549478L;
 	private JToolBar bar;
-	private Set<Tool> tools = new HashSet<>();
 
 	private void registerTool(Tool... tools) {
 		for (Tool tool : tools) {
-			this.tools.add(tool);
 			bar.add(tool.getButton());
 		}
 	}
@@ -27,12 +27,13 @@ public class BuilderFrame extends JFrame {
 	public BuilderFrame(BuilderConfig cfg) {
 		super("Atlas builder");
 		JPanel contentPane = new JPanel(new BorderLayout());
-		bar = new JToolBar(JToolBar.VERTICAL);
+		bar = new JToolBar(JToolBar.HORIZONTAL);
 		bar.setBackground(Color.WHITE);
 
-		registerTool(new ToolWall());
-
-		contentPane.add(bar, BorderLayout.WEST);
+		registerTool(new ToolSave(cfg), new ToolWall());
+		
+		bar.add(new JSeparator(JSeparator.HORIZONTAL));
+		contentPane.add(bar, BorderLayout.NORTH);
 		contentPane.add(new MapPanel(cfg), BorderLayout.CENTER);
 
 		contentPane.setSize(1000, 600);

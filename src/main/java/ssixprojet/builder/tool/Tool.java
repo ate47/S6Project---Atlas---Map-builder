@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -21,11 +23,13 @@ import ssixprojet.utils.ListenerAdaptater;
 @Getter
 @ToString
 public abstract class Tool {
+	private static final Set<Tool> TOOLS = new HashSet<>();
 	private String name;
 	private boolean enabled = false;
 	private JButton button;
 
 	protected Tool(String name, String image) {
+		TOOLS.add(this);
 		this.name = name;
 		Image icon;
 		try {
@@ -46,7 +50,7 @@ public abstract class Tool {
 		button.addMouseListener(new ListenerAdaptater() {
 			@Override
 			public void mouseExited(MouseEvent e) {
-				if (isEnabled()) {
+				if (!isEnabled()) {
 					button.setBackground(Color.LIGHT_GRAY);
 					button.setForeground(Color.BLACK);
 				} else {
@@ -57,7 +61,7 @@ public abstract class Tool {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				if (isEnabled()) {
+				if (!isEnabled()) {
 					button.setBackground(Color.GRAY);
 					button.setForeground(Color.WHITE);
 				} else {
@@ -87,11 +91,11 @@ public abstract class Tool {
 	}
 
 	public void toggle(boolean value) {
-		if (!isToggleTool()) {
+		if (value && !isToggleTool()) {
 			onEnabled();
 			return;
 		}
-		if (isEnabled() == value)
+		if (enabled == value)
 			return;
 
 		if (value) {
@@ -100,6 +104,7 @@ public abstract class Tool {
 			button.setBackground(Color.LIGHT_GRAY);
 			button.setForeground(Color.BLACK);
 		} else {
+			TOOLS.forEach(t -> t.toggle(false));
 			onEnabled();
 			enabled = true;
 			button.setBackground(Color.DARK_GRAY);
