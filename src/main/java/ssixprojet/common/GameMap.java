@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,15 +21,20 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GameMap {
-	private static final Gson GSON = new Gson();
-	private List<MapEdge> edges = new ArrayList<>();
-	private List<SpawnLocation> spawnLocations = new ArrayList<>();
-	private int width, height;
+	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
+	public static GameMap emptyGameMap(int width, int height) {
+		GameMap map = new GameMap();
+		map.width = width;
+		map.height = height;
+		return map;
+	}
 
 	/**
 	 * read the map from a Json file
 	 * 
-	 * @param file the Json file
+	 * @param file
+	 *            the Json file
 	 * @return a {@link GameMap} object represented in the file
 	 * @throws IOException
 	 */
@@ -37,6 +43,12 @@ public class GameMap {
 			return GSON.fromJson(r, GameMap.class);
 		}
 	}
+
+	private List<MapEdge> edges = new ArrayList<>();
+
+	private List<SpawnLocation> spawnLocations = new ArrayList<>();
+
+	private int width, height;
 
 	/**
 	 * save the to a json file
@@ -51,10 +63,12 @@ public class GameMap {
 		}
 	}
 
-	public static GameMap emptyGameMap(int width, int height) {
-		GameMap map = new GameMap();
-		map.width = width;
-		map.height = height;
-		return map;
+	public void updateMapDimension(int width, int height, boolean relocateRelative) {
+		if (relocateRelative) {
+			edges.forEach(e -> e.updateMapDimension(width, height, this.width, this.height));
+			spawnLocations.forEach(s -> s.updateMapDimension(width, height, this.width, this.height));
+		}
+		this.width = width;
+		this.height = height;
 	}
 }

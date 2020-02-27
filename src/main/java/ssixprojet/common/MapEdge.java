@@ -21,7 +21,12 @@ public @Data class MapEdge {
 
 	}
 
-	private double x, y, length;
+	private int x, y, length;
 	private Orientation orientation;
 
+	public void updateMapDimension(int width, int height, int oldWidth, int oldHeight) {
+		x = (x * width) / oldWidth;
+		y = (y * height) / oldHeight;
+		length = (length * width) / oldWidth;
+	}
 }

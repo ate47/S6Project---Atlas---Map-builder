@@ -2,8 +2,6 @@ package ssixprojet.builder;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

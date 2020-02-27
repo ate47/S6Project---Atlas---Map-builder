@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import ssixprojet.utils.ListenerAdaptater;
@@ -22,8 +23,10 @@ import ssixprojet.utils.ListenerAdaptater;
  */
 @Getter
 @ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class Tool {
 	private static final Set<Tool> TOOLS = new HashSet<>();
+	@EqualsAndHashCode.Include
 	private String name;
 	private boolean enabled = false;
 	private JButton button;

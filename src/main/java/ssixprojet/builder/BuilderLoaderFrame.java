@@ -2,9 +2,9 @@ package ssixprojet.builder;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -125,7 +126,7 @@ public class BuilderLoaderFrame extends JFrame {
 
 		JButton mapSelector = new JButton("Open file...");
 		mapSelector.setBounds(420, 170, 160, 30);
-		mapSelector.addActionListener(new FileLoaderAction(mapField, "Open map file...", "map file", ".json"));
+		mapSelector.addActionListener(new FileLoaderAction(mapField, "Select map file...", "map file", ".json"));
 		panel.add(mapSelector);
 
 		JButton openLoader = new JButton("Launch");
@@ -173,14 +174,14 @@ public class BuilderLoaderFrame extends JFrame {
 			error = true;
 		}
 
-		if (!mapJson.exists() || !mapJson.isFile()) {
-			setMapLabel("The file does not exists");
+		if (mapJson.exists() && !mapJson.isFile()) {
+			setMapLabel("The file isn't a file");
 			error = true;
 		}
 
 		if (error)
 			return;
-		Image img;
+		BufferedImage img;
 
 		try {
 			img = ImageIO.read(image);
@@ -188,14 +189,38 @@ public class BuilderLoaderFrame extends JFrame {
 			setImageLabel(e.getMessage());
 			return;
 		}
-
+		int width, height;
+		width = img.getWidth();
+		height = img.getHeight();
 		GameMap map;
 
-		try {
-			map = GameMap.readMap(mapJson);
-		} catch (IOException e) {
-			setMapLabel(e.getMessage());
-			return;
+		if (mapJson.exists()) {
+			try {
+				map = GameMap.readMap(mapJson);
+			} catch (IOException e) {
+				setMapLabel(e.getMessage());
+				return;
+			}
+			if (map.getHeight() != height || map.getWidth() != width) {
+				switch (JOptionPane.showConfirmDialog(this.getContentPane(),
+						"New map image dimensions, update the locations relatively or not?", "Update dimensions",
+						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE)) {
+				case JOptionPane.NO_OPTION:
+					map.updateMapDimension(width, height, false);
+					map.saveMap(mapJson);
+					break;
+				case JOptionPane.YES_OPTION:
+					map.updateMapDimension(width, height, true);
+					map.saveMap(mapJson);
+					break;
+				default:
+					System.exit(0);
+					break;
+				}
+			}
+		} else {
+			map = GameMap.emptyGameMap(width, height);
+			map.saveMap(mapJson);
 		}
 		saveData();
 		setVisible(false);
