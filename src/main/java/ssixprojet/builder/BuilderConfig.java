@@ -22,6 +22,7 @@ public class BuilderConfig {
 		}
 		ICO = ico;
 	}
+	private boolean needToBeSaved = false;
 	private File mapFile;
 	private GameMap map;
 	private BufferedImage background;

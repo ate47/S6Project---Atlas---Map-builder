@@ -53,6 +53,7 @@ public class ToolWall extends Tool {
 
 	@Override
 	public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+
 		return false;
 	}
 
@@ -80,6 +81,9 @@ public class ToolWall extends Tool {
 			config.getMap().getEdges().add(new MapEdge(x, y, w, MapEdge.Orientation.RIGHT));
 		else if (h > 2)
 			config.getMap().getEdges().add(new MapEdge(x, y, h, MapEdge.Orientation.BOTTOM));
+		else
+			return true;
+		config.setNeedToBeSaved(true);
 		return true;
 	}
 }
