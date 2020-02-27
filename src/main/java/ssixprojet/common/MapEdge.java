@@ -1,5 +1,6 @@
 package ssixprojet.common;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,7 @@ import ssixprojet.utils.Vector;
 /**
  * represent a edge of the map
  */
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public @Data class MapEdge {
 	/**
