@@ -8,10 +8,13 @@ import javax.swing.JPanel;
 
 import ssixprojet.common.MapEdge;
 import ssixprojet.common.MapEdge.Orientation;
+import ssixprojet.common.SpawnLocation;
 import ssixprojet.utils.ListenerAdaptater;
 
 public class MapPanel extends JPanel implements ListenerAdaptater {
 	public static final Color WALL_COLOR = new Color(0x80ff0000, true);
+	public static final Color SPAWN_COLOR = new Color(0x8000ffff, true);
+	public static final Color SPAWN_INSIDE_COLOR = new Color(0x8000aa00, true);
 	private static final long serialVersionUID = -3530646458565447203L;
 	private int mouseX, mouseY, dragOriginMouseX, dragOriginMouseY, mouseButton;
 	private boolean drag;
@@ -118,10 +121,26 @@ public class MapPanel extends JPanel implements ListenerAdaptater {
 			if (e.getOrientation() == Orientation.RIGHT) {
 				g.fillRect((int) (e.getX() * factorX), (int) (e.getY() * factorY), (int) (e.getLength() * factorX),
 						Math.max(2, (int) factorY));
+				g.drawRect((int) (e.getX() * factorX), (int) (e.getY() * factorY), (int) (e.getLength() * factorX),
+						Math.max(2, (int) factorY));
 			} else { // BOTTOM
 				g.fillRect((int) (e.getX() * factorX), (int) (e.getY() * factorY), Math.max(2, (int) factorX),
 						(int) (e.getLength() * factorY));
+				g.drawRect((int) (e.getX() * factorX), (int) (e.getY() * factorY), Math.max(2, (int) factorX),
+						(int) (e.getLength() * factorY));
 			}
+		}
+		// draw spawn
+		for (SpawnLocation e : cfg.getMap().getSpawnLocations()) {
+			if (e.isOutside())
+				g.setColor(SPAWN_COLOR);
+			else
+				g.setColor(SPAWN_INSIDE_COLOR);
+			
+			g.fillRect((int) (e.getX() * factorX), (int) (e.getY() * factorY), (int) (e.getWidth() * factorX),
+					(int) (e.getHeight() * factorY));
+			g.drawRect((int) (e.getX() * factorX), (int) (e.getY() * factorY), (int) (e.getWidth() * factorX),
+					(int) (e.getHeight() * factorY));
 		}
 		cfg.sendToSelectedTool(t -> t.onDraw(g, getRelativeX(mouseX), getRelativeY(mouseY), factorX, factorY));
 		super.paintComponent(g);
