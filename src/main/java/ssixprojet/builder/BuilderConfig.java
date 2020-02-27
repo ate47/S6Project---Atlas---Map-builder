@@ -1,6 +1,7 @@
 package ssixprojet.builder;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
@@ -23,10 +24,10 @@ public class BuilderConfig {
 	}
 	private File mapFile;
 	private GameMap map;
-	private Image background;
+	private BufferedImage background;
 	private BuilderFrame frame;
 
-	public BuilderConfig(GameMap map, Image background, File mapFile) {
+	public BuilderConfig(GameMap map, BufferedImage background, File mapFile) {
 		this.map = map;
 		this.background = background;
 		this.mapFile = mapFile;

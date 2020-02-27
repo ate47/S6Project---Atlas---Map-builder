@@ -10,6 +10,7 @@ import javax.swing.JToolBar;
 
 import ssixprojet.builder.tool.Tool;
 import ssixprojet.builder.tool.ToolSave;
+import ssixprojet.builder.tool.ToolSpawn;
 import ssixprojet.builder.tool.ToolWall;
 
 public class BuilderFrame extends JFrame {
@@ -23,18 +24,18 @@ public class BuilderFrame extends JFrame {
 	}
 
 	public BuilderFrame(BuilderConfig cfg) {
-		super("Atlas builder");
+		super("Atlas map builder - Editor");
 		JPanel contentPane = new JPanel(new BorderLayout());
 		bar = new JToolBar(JToolBar.HORIZONTAL);
 		bar.setBackground(Color.WHITE);
 
-		registerTool(new ToolSave(cfg), new ToolWall());
+		registerTool(new ToolSave(cfg), new ToolWall(), new ToolSpawn());
 		
 		bar.add(new JSeparator(JSeparator.HORIZONTAL));
 		contentPane.add(bar, BorderLayout.NORTH);
 		contentPane.add(new MapPanel(cfg), BorderLayout.CENTER);
 
-		contentPane.setSize(1000, 600);
+		contentPane.setSize(cfg.getBackground().getWidth(), cfg.getBackground().getHeight() + bar.getWidth());
 		setContentPane(contentPane);
 		setSize(getContentPane().getSize());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
