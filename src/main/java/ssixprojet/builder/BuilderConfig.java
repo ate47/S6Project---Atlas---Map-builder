@@ -9,7 +9,9 @@ import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 import ssixprojet.builder.tool.Tool;
 import ssixprojet.builder.tool.ToolSave;
 import ssixprojet.builder.tool.ToolSpawn;
@@ -40,8 +42,10 @@ public class BuilderConfig {
 		ORIENTATION = orientation;
 		LOCATION = location;
 	}
+	private Tool saveTool;
 	private final List<Tool> TOOLS = new ArrayList<>();
 	private Tool selectedTool;
+	@Setter(value = AccessLevel.NONE)
 	private boolean needToBeSaved = false;
 	private File mapFile;
 	private GameMap map;
@@ -53,12 +57,13 @@ public class BuilderConfig {
 		this.background = background;
 		this.mapFile = mapFile;
 
-		registerTools(new ToolSave(this), new ToolWall(this), new ToolSpawn(this));
+		registerTools(saveTool = new ToolSave(this), new ToolWall(this), new ToolSpawn(this));
 
+		saveTool.getButton().setEnabled(false);
 		this.frame = new BuilderFrame(this);
 
 	}
-
+	
 	public void disableAllTools() {
 		TOOLS.forEach(t -> t.toggle(false));
 	}
@@ -71,6 +76,11 @@ public class BuilderConfig {
 		return TOOLS;
 	}
 
+	public void needToBeSaved() {
+		needToBeSaved = true;
+		saveTool.getButton().setEnabled(true);
+	}
+
 	public void registerTools(Tool... tools) {
 		for (Tool tool : tools) {
 			TOOLS.add(tool);
@@ -79,6 +89,8 @@ public class BuilderConfig {
 
 	public void saveMap() {
 		map.saveMap(mapFile);
+		needToBeSaved = false;
+		saveTool.getButton().setEnabled(false);
 	}
 
 	public void selectTool(Tool tool) {

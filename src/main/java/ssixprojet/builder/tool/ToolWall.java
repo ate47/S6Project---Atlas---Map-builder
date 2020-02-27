@@ -59,14 +59,14 @@ public class ToolWall extends Tool {
 		config.showContextMenu(new ContextMenu(200)
 				.withText(new ImageIcon(BuilderConfig.LOCATION),
 						"X: " + e.getX() + ", Y: " + e.getY() + ", Len: " + e.getLength())
-				.withAction(new ImageIcon(BuilderConfig.ORIENTATION),
-						"Orientation: " + e.getOrientation().name(), () -> {
+				.withAction(new ImageIcon(BuilderConfig.ORIENTATION), "Orientation: " + e.getOrientation().name(),
+						() -> {
 							e.setOrientation(e.getOrientation().next());
-							config.setNeedToBeSaved(true);
+							config.needToBeSaved();
 						})
 				.withAction(new ImageIcon(BuilderConfig.DELETE), "Delete", () -> {
 					config.getMap().getEdges().remove(e);
-					config.setNeedToBeSaved(true);
+					config.needToBeSaved();
 				}));
 	}
 
@@ -133,7 +133,7 @@ public class ToolWall extends Tool {
 			config.getMap().getEdges().add(new MapEdge(x, y, h, MapEdge.Orientation.BOTTOM));
 		else
 			return true;
-		config.setNeedToBeSaved(true);
+		config.needToBeSaved();
 		return true;
 	}
 }
