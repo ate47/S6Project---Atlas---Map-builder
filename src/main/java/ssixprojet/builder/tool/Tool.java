@@ -7,9 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -28,19 +25,6 @@ import ssixprojet.utils.ListenerAdaptater;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class Tool {
-	private static final Set<Tool> TOOLS = new HashSet<>();
-	private static Tool selectedTool;
-
-	/**
-	 * send an action to the selected tool (do nothing if no tool is selected)
-	 * 
-	 * @param action
-	 *            the action to do, the tool can't be null
-	 */
-	public static void sendToSelectedTool(Consumer<Tool> action) {
-		if (selectedTool != null)
-			action.accept(selectedTool);
-	}
 
 	@EqualsAndHashCode.Include
 	private String name;
@@ -49,7 +33,6 @@ public abstract class Tool {
 	protected final BuilderConfig config;
 
 	protected Tool(String name, String image, BuilderConfig config) {
-		TOOLS.add(this);
 		this.name = name;
 		this.config = config;
 		Image icon;
@@ -120,6 +103,7 @@ public abstract class Tool {
 	}
 
 	public void toggle(boolean value) {
+		config.showContextMenu(null);
 		if (value && !isToggleTool()) {
 			onEnabled();
 			return;
@@ -131,14 +115,14 @@ public abstract class Tool {
 		if (!value) {
 			onDisabled();
 			enabled = false;
-			selectedTool = null;
+			config.setSelectedTool(null);
 			button.setBackground(Color.LIGHT_GRAY);
 			button.setForeground(Color.BLACK);
 		} else {
-			TOOLS.forEach(t -> t.toggle(false));
+			config.disableAllTools();
 			onEnabled();
 			enabled = true;
-			selectedTool = this;
+			config.setSelectedTool(this);
 			button.setBackground(Color.DARK_GRAY);
 			button.setForeground(Color.WHITE);
 		}

@@ -11,20 +11,13 @@ import javax.swing.JSeparator;
 import javax.swing.JToolBar;
 
 import ssixprojet.builder.tool.Tool;
-import ssixprojet.builder.tool.ToolSave;
-import ssixprojet.builder.tool.ToolSpawn;
-import ssixprojet.builder.tool.ToolWall;
 import ssixprojet.utils.ListenerAdaptater;
 
 public class BuilderFrame extends JFrame {
+
 	private static final long serialVersionUID = -5711038942503549478L;
 	private JToolBar bar;
-
-	private void registerTool(Tool... tools) {
-		for (Tool tool : tools) {
-			bar.add(tool.getButton());
-		}
-	}
+	private MapPanel panel;
 
 	public BuilderFrame(BuilderConfig cfg) {
 		super("Atlas map builder - Editor");
@@ -32,11 +25,13 @@ public class BuilderFrame extends JFrame {
 		bar = new JToolBar(JToolBar.HORIZONTAL);
 		bar.setBackground(Color.WHITE);
 
-		registerTool(new ToolSave(cfg), new ToolWall(cfg), new ToolSpawn(cfg));
+		// add tools button to the bar
+		for (Tool t : cfg.getTools())
+			bar.add(t.getButton());
 
 		bar.add(new JSeparator(JSeparator.HORIZONTAL));
 		contentPane.add(bar, BorderLayout.NORTH);
-		contentPane.add(new MapPanel(cfg), BorderLayout.CENTER);
+		contentPane.add(panel = new MapPanel(cfg), BorderLayout.CENTER);
 
 		contentPane.setSize(cfg.getBackground().getWidth(), cfg.getBackground().getHeight() + bar.getWidth());
 		setContentPane(contentPane);
@@ -65,5 +60,9 @@ public class BuilderFrame extends JFrame {
 		setIconImage(BuilderConfig.ICO);
 		setLocationRelativeTo(null);
 		setVisible(true);
+	}
+
+	public void showContextMenu(ContextMenu menu) {
+		panel.showContextMenu(menu);
 	}
 }

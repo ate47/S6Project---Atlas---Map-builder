@@ -5,6 +5,12 @@
       "y": 490,
       "length": 711,
       "orientation": "RIGHT"
+    },
+    {
+      "x": 430,
+      "y": 9,
+      "length": 207,
+      "orientation": "BOTTOM"
     }
   ],
   "spawnLocations": [],

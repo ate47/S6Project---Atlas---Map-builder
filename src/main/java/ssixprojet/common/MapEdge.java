@@ -23,6 +23,9 @@ public @Data class MapEdge {
 			this.desc = desc;
 		}
 
+		public Orientation next() {
+			return Orientation.values()[(ordinal() + 1) % Orientation.values().length];
+		}
 	}
 
 	private int x, y, length;
