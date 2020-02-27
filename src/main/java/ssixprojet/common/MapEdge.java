@@ -1,11 +1,15 @@
 package ssixprojet.common;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ssixprojet.utils.Vector;
 
 /**
  * represent a edge of the map
  */
+@NoArgsConstructor
+@AllArgsConstructor
 public @Data class MapEdge {
 	/**
 	 * the orientation

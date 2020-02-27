@@ -1,6 +1,7 @@
 package ssixprojet.builder.tool;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -16,6 +18,7 @@ import javax.swing.JButton;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import ssixprojet.builder.BuilderConfig;
 import ssixprojet.utils.ListenerAdaptater;
 
 /**
@@ -26,14 +29,29 @@ import ssixprojet.utils.ListenerAdaptater;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class Tool {
 	private static final Set<Tool> TOOLS = new HashSet<>();
+	private static Tool selectedTool;
+
+	/**
+	 * send an action to the selected tool (do nothing if no tool is selected)
+	 * 
+	 * @param action
+	 *            the action to do, the tool can't be null
+	 */
+	public static void sendToSelectedTool(Consumer<Tool> action) {
+		if (selectedTool != null)
+			action.accept(selectedTool);
+	}
+
 	@EqualsAndHashCode.Include
 	private String name;
 	private boolean enabled = false;
 	private JButton button;
+	protected final BuilderConfig config;
 
-	protected Tool(String name, String image) {
+	protected Tool(String name, String image, BuilderConfig config) {
 		TOOLS.add(this);
 		this.name = name;
+		this.config = config;
 		Image icon;
 		try {
 			icon = ImageIO.read(Tool.class.getResourceAsStream(image));
@@ -79,13 +97,21 @@ public abstract class Tool {
 		return true;
 	}
 
-	public void onClick(int mouseX, int mouseY, int mouseButton) {}
+	public boolean onClick(int mouseX, int mouseY, int mouseButton) {
+		return false;
+	}
 
 	protected void onDisabled() {}
 
-	public void onDrag(int newMouseX, int newMouseY, int mouseButton) {}
+	public boolean onDrag(int mouseX, int mouseY, int newMouseX, int newMouseY, int mouseButton) {
+		return false;
+	}
 
-	public void onDraw(int mouseX, int mouseY) {}
+	public boolean onStopDrag(int mouseX, int mouseY, int newMouseX, int newMouseY, int mouseButton) {
+		return false;
+	}
+
+	public void onDraw(Graphics g, int mouseX, int mouseY, double factorX, double factorY) {}
 
 	protected void onEnabled() {}
 
@@ -98,18 +124,21 @@ public abstract class Tool {
 			onEnabled();
 			return;
 		}
-		if (enabled == value)
+		if (enabled == value) {
 			return;
+		}
 
-		if (value) {
+		if (!value) {
 			onDisabled();
 			enabled = false;
+			selectedTool = null;
 			button.setBackground(Color.LIGHT_GRAY);
 			button.setForeground(Color.BLACK);
 		} else {
 			TOOLS.forEach(t -> t.toggle(false));
 			onEnabled();
 			enabled = true;
+			selectedTool = this;
 			button.setBackground(Color.DARK_GRAY);
 			button.setForeground(Color.WHITE);
 		}

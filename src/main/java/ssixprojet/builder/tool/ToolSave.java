@@ -3,11 +3,9 @@ package ssixprojet.builder.tool;
 import ssixprojet.builder.BuilderConfig;
 
 public class ToolSave extends Tool {
-	private BuilderConfig cfg;
 
-	public ToolSave(BuilderConfig cfg) {
-		super("Save", "/tool_save.png");
-		this.cfg = cfg;
+	public ToolSave(BuilderConfig config) {
+		super("Save", "/tool_save.png", config);
 	}
 
 	@Override
@@ -17,7 +15,7 @@ public class ToolSave extends Tool {
 
 	@Override
 	protected void onEnabled() {
-		cfg.saveMap();
+		config.saveMap();
 		super.onEnabled();
 	}
 }

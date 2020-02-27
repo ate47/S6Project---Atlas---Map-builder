@@ -1,5 +1,12 @@
 {
-  "edges": [],
+  "edges": [
+    {
+      "x": 4,
+      "y": 490,
+      "length": 711,
+      "orientation": "RIGHT"
+    }
+  ],
   "spawnLocations": [],
   "width": 1000,
   "height": 600

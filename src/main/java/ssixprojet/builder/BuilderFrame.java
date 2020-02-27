@@ -29,8 +29,8 @@ public class BuilderFrame extends JFrame {
 		bar = new JToolBar(JToolBar.HORIZONTAL);
 		bar.setBackground(Color.WHITE);
 
-		registerTool(new ToolSave(cfg), new ToolWall(), new ToolSpawn());
-		
+		registerTool(new ToolSave(cfg), new ToolWall(cfg), new ToolSpawn(cfg));
+
 		bar.add(new JSeparator(JSeparator.HORIZONTAL));
 		contentPane.add(bar, BorderLayout.NORTH);
 		contentPane.add(new MapPanel(cfg), BorderLayout.CENTER);
