@@ -13,7 +13,15 @@
       "orientation": "BOTTOM"
     }
   ],
-  "spawnLocations": [],
+  "spawnLocations": [
+    {
+      "outside": false,
+      "x": 7,
+      "y": 9,
+      "width": 272,
+      "height": 194
+    }
+  ],
   "width": 1000,
   "height": 600
 }

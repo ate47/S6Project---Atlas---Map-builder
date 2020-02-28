@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import javax.imageio.ImageIO;
-
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -17,31 +15,16 @@ import ssixprojet.builder.tool.ToolSave;
 import ssixprojet.builder.tool.ToolSpawn;
 import ssixprojet.builder.tool.ToolWall;
 import ssixprojet.common.GameMap;
+import ssixprojet.utils.ImageLoader;
 
 @Data
 public class BuilderConfig {
-	public static final Image ICO;
-	public static final Image DELETE;
-	public static final Image LOCATION;
-	public static final Image ORIENTATION;
+	public static final Image ICO = ImageLoader.loadImage("/ico.png");
+	public static final Image DELETE = ImageLoader.loadImage("/context_delete.png");
+	public static final Image LOCATION = ImageLoader.loadImage("/context_wall_orientation.png");
+	public static final Image ORIENTATION = ImageLoader.loadImage("/context_wall_location.png");
+	public static final Image SPAWN = ImageLoader.loadImage("/context_spawn_inside.png");
 
-	static {
-		Image ico, delete, orientation, location;
-
-		try {
-			ico = ImageIO.read(BuilderConfig.class.getResourceAsStream("/ico.png"));
-			delete = ImageIO.read(BuilderConfig.class.getResourceAsStream("/context_delete.png"));
-			orientation = ImageIO
-					.read(BuilderConfig.class.getResourceAsStream("/context_wall_orientation.png"));
-			location = ImageIO.read(BuilderConfig.class.getResourceAsStream("/context_wall_location.png"));
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		ICO = ico;
-		DELETE = delete;
-		ORIENTATION = orientation;
-		LOCATION = location;
-	}
 	private Tool saveTool;
 	private final List<Tool> TOOLS = new ArrayList<>();
 	private Tool selectedTool;
@@ -63,7 +46,7 @@ public class BuilderConfig {
 		this.frame = new BuilderFrame(this);
 
 	}
-	
+
 	public void disableAllTools() {
 		TOOLS.forEach(t -> t.toggle(false));
 	}
