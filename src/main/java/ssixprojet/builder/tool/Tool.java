@@ -49,6 +49,7 @@ public abstract class Tool {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				toggle();
+				config.getFrame().repaint();
 			}
 		});
 		button.addMouseListener(new ListenerAdaptater() {

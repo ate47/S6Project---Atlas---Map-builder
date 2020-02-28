@@ -128,9 +128,9 @@ public class ToolWall extends Tool {
 		dragging = false;
 		buildBox(mouseX, mouseY, newMouseX, newMouseY);
 		if (w > 2)
-			config.getMap().getEdges().add(new MapEdge(x, y, w, MapEdge.Orientation.RIGHT));
+			config.getMap().getEdges().add(0, new MapEdge(x, y, w, MapEdge.Orientation.RIGHT));
 		else if (h > 2)
-			config.getMap().getEdges().add(new MapEdge(x, y, h, MapEdge.Orientation.BOTTOM));
+			config.getMap().getEdges().add(0, new MapEdge(x, y, h, MapEdge.Orientation.BOTTOM));
 		else
 			return true;
 		config.needToBeSaved();

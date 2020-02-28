@@ -21,6 +21,7 @@ import ssixprojet.utils.ImageLoader;
 public class BuilderConfig {
 	public static final Image ICO = ImageLoader.loadImage("/ico.png");
 	public static final Image DELETE = ImageLoader.loadImage("/context_delete.png");
+	public static final Image EDIT = ImageLoader.loadImage("/context_edit.png");
 	public static final Image LOCATION = ImageLoader.loadImage("/context_wall_orientation.png");
 	public static final Image ORIENTATION = ImageLoader.loadImage("/context_wall_location.png");
 	public static final Image SPAWN = ImageLoader.loadImage("/context_spawn_inside.png");
