@@ -116,18 +116,25 @@ public class MapPanel extends JPanel implements ListenerAdaptater {
 		}
 
 		// draw walls
+
+		int x, y, size;
+		int sizeX = Math.max(2, (int) factorX);
+		int sizeY = Math.max(2, (int) factorY);
+
 		g.setColor(WALL_COLOR);
 		for (MapEdge e : cfg.getMap().getEdges()) {
 			if (e.getOrientation() == Orientation.RIGHT) {
-				g.fillRect((int) (e.getX() * factorX), (int) (e.getY() * factorY), (int) (e.getLength() * factorX),
-						Math.max(2, (int) factorY));
-				g.drawRect((int) (e.getX() * factorX), (int) (e.getY() * factorY), (int) (e.getLength() * factorX),
-						Math.max(2, (int) factorY));
+				x = (int) (e.getX() * factorX);
+				y = (int) (e.getY() * factorY);
+				size = (int) (e.getLength() * factorX);
+				g.fillRect(x, y, size, sizeY);
+				g.drawRect(x, y, size, sizeY);
 			} else { // BOTTOM
-				g.fillRect((int) (e.getX() * factorX), (int) (e.getY() * factorY), Math.max(2, (int) factorX),
-						(int) (e.getLength() * factorY));
-				g.drawRect((int) (e.getX() * factorX), (int) (e.getY() * factorY), Math.max(2, (int) factorX),
-						(int) (e.getLength() * factorY));
+				x = (int) (e.getX() * factorX);
+				y = (int) (e.getY() * factorY);
+				size = (int) (e.getLength() * factorY);
+				g.fillRect(x, y, sizeX, size);
+				g.drawRect(x, y, sizeX, size);
 			}
 		}
 		// draw spawn
@@ -136,7 +143,7 @@ public class MapPanel extends JPanel implements ListenerAdaptater {
 				g.setColor(SPAWN_COLOR);
 			else
 				g.setColor(SPAWN_INSIDE_COLOR);
-			
+
 			g.fillRect((int) (e.getX() * factorX), (int) (e.getY() * factorY), (int) (e.getWidth() * factorX),
 					(int) (e.getHeight() * factorY));
 			g.drawRect((int) (e.getX() * factorX), (int) (e.getY() * factorY), (int) (e.getWidth() * factorX),
