@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 import ssixprojet.builder.tool.Tool;
+import ssixprojet.builder.tool.ToolDeleteWall;
 import ssixprojet.builder.tool.ToolSave;
 import ssixprojet.builder.tool.ToolSpawn;
 import ssixprojet.builder.tool.ToolWall;
@@ -41,7 +42,7 @@ public class BuilderConfig {
 		this.background = background;
 		this.mapFile = mapFile;
 
-		registerTools(saveTool = new ToolSave(this), new ToolWall(this), new ToolSpawn(this));
+		registerTools(saveTool = new ToolSave(this), new ToolWall(this), new ToolDeleteWall(this), new ToolSpawn(this));
 
 		saveTool.getButton().setEnabled(false);
 		this.frame = new BuilderFrame(this);
