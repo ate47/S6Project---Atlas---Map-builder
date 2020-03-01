@@ -15,6 +15,7 @@ import ssixprojet.builder.tool.ToolDeleteWall;
 import ssixprojet.builder.tool.ToolSave;
 import ssixprojet.builder.tool.ToolSpawn;
 import ssixprojet.builder.tool.ToolWall;
+import ssixprojet.builder.tool.ToolWallBox;
 import ssixprojet.common.GameMap;
 import ssixprojet.utils.ImageLoader;
 
@@ -42,7 +43,8 @@ public class BuilderConfig {
 		this.background = background;
 		this.mapFile = mapFile;
 
-		registerTools(saveTool = new ToolSave(this), new ToolWall(this), new ToolDeleteWall(this), new ToolSpawn(this));
+		registerTools(saveTool = new ToolSave(this), new ToolWall(this), new ToolWallBox(this),
+				new ToolDeleteWall(this), new ToolSpawn(this));
 
 		saveTool.getButton().setEnabled(false);
 		this.frame = new BuilderFrame(this);
