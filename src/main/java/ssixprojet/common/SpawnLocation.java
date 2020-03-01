@@ -8,17 +8,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Data
-public class SpawnLocation {
+public class SpawnLocation implements Cloneable {
 	private boolean outside;
 	private int x, y, width, height;
 
 	/**
 	 * test if a point is in
 	 * 
-	 * @param x
-	 *            the x location to try
-	 * @param y
-	 *            the y location to try
+	 * @param x the x location to try
+	 * @param y the y location to try
 	 * @return true if the location is in the spawn location, false otherwise
 	 */
 	public boolean isIn(int x, int y) {
@@ -32,4 +30,8 @@ public class SpawnLocation {
 		this.height = (this.height * height) / oldHeight;
 	}
 
+	@Override
+	public SpawnLocation clone() {
+		return new SpawnLocation(outside, x, y, width, height);
+	}
 }
