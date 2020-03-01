@@ -11,12 +11,45 @@ import ssixprojet.common.MapEdge.Orientation;
 
 public class ToolDeleteWall extends Tool {
 
+	private int x, y, w, h;
+
+	private boolean dragging = false;
 	public ToolDeleteWall(BuilderConfig config) {
 		super("Wall spliter", "/tool_deletewall.png", config);
 	}
 
-	private int x, y, w, h;
-	private boolean dragging = false;
+	@Override
+	public boolean onDrag(int mouseX, int mouseY, int newMouseX, int newMouseY, int mouseButton) {
+		if (mouseButton != MouseEvent.BUTTON1)
+			return false;
+
+		dragging = true;
+		buildBox(mouseX, mouseY, newMouseX, newMouseY);
+
+		return true;
+	}
+
+	@Override
+	public void onDraw(Graphics g, int mouseX, int mouseY, double factorX, double factorY) {
+		if (dragging) {
+			g.setColor(ToolWall.WALL_COLOR);
+			g.drawRect((int) (x * factorX), (int) (y * factorY), (int) (w * factorX), (int) (h * factorY));
+			g.setColor(MapPanel.WALL_COLOR);
+			g.fillRect((int) (x * factorX), (int) (y * factorY), (int) (w * factorX), (int) (h * factorY));
+		}
+	}
+
+	@Override
+	public boolean onStopDrag(int mouseX, int mouseY, int newMouseX, int newMouseY, int mouseButton) {
+		if (!dragging)
+			return false;
+
+		dragging = false;
+		buildBox(mouseX, mouseY, newMouseX, newMouseY);
+		clearArea();
+		return true;
+
+	}
 
 	private void buildBox(int mouseX, int mouseY, int newMouseX, int newMouseY) {
 		// get the box boundaries
@@ -109,38 +142,5 @@ public class ToolDeleteWall extends Tool {
 
 		if (change)
 			config.needToBeSaved();
-	}
-
-	@Override
-	public boolean onDrag(int mouseX, int mouseY, int newMouseX, int newMouseY, int mouseButton) {
-		if (mouseButton != MouseEvent.BUTTON1)
-			return false;
-
-		dragging = true;
-		buildBox(mouseX, mouseY, newMouseX, newMouseY);
-
-		return true;
-	}
-
-	@Override
-	public void onDraw(Graphics g, int mouseX, int mouseY, double factorX, double factorY) {
-		if (dragging) {
-			g.setColor(ToolWall.WALL_COLOR);
-			g.drawRect((int) (x * factorX), (int) (y * factorY), (int) (w * factorX), (int) (h * factorY));
-			g.setColor(MapPanel.WALL_COLOR);
-			g.fillRect((int) (x * factorX), (int) (y * factorY), (int) (w * factorX), (int) (h * factorY));
-		}
-	}
-
-	@Override
-	public boolean onStopDrag(int mouseX, int mouseY, int newMouseX, int newMouseY, int mouseButton) {
-		if (!dragging)
-			return false;
-
-		dragging = false;
-		buildBox(mouseX, mouseY, newMouseX, newMouseY);
-		clearArea();
-		return true;
-
 	}
 }
