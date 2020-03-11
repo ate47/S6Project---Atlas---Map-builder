@@ -1461,5 +1461,6 @@
   ],
   "spawnLocations": [],
   "width": 4096,
-  "height": 2160
+  "height": 2160,
+  "playerSize": 49
 }
