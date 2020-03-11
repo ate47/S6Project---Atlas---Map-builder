@@ -41,6 +41,7 @@ public class ToolSetPlayer extends Tool {
 			if (modifier == MOVE_ALL) {
 				x += dx;
 				y += dy;
+				return true;
 			} else if (modifier == MOVE_X_LEFT) {
 				y += size / 2;
 				if (dx < size) {
