@@ -15,6 +15,7 @@ import com.google.gson.GsonBuilder;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @ToString
@@ -27,6 +28,7 @@ public class GameMap {
 		GameMap map = new GameMap();
 		map.width = width;
 		map.height = height;
+		map.playerSize = Math.max(width, height) / 6;
 		return map;
 	}
 
@@ -40,7 +42,11 @@ public class GameMap {
 	 */
 	public static GameMap readMap(File file) throws IOException {
 		try (Reader r = new FileReader(file)) {
-			return GSON.fromJson(r, GameMap.class);
+			GameMap map = GSON.fromJson(r, GameMap.class);
+			if (map.playerSize == 0)
+				map.playerSize = Math.max(map.width, map.height) / 6;
+			return map;
+				
 		}
 	}
 
@@ -49,6 +55,8 @@ public class GameMap {
 	private List<SpawnLocation> spawnLocations = new ArrayList<>();
 
 	private int width, height;
+	@Setter
+	private int playerSize;
 
 	/**
 	 * save the to a json file

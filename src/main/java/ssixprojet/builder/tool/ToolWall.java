@@ -22,12 +22,6 @@ public class ToolWall extends Tool {
 
 	public static final Color WALL_COLOR = new Color(MapPanel.WALL_COLOR.getRGB(), false);
 
-	private static boolean isIn(int x, int y, int inX, int inY, int radius) {
-		int dx = (x - inX);
-		int dy = (y - inY);
-		return dx * dx + dy * dy <= radius * radius;
-	}
-
 	private boolean dragging = false;
 	private int x, y, w, h;
 	private MapEdge edit;

@@ -25,6 +25,11 @@ import ssixprojet.utils.ListenerAdaptater;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class Tool {
+	public static boolean isIn(int x, int y, int inX, int inY, int radius) {
+		int dx = (x - inX);
+		int dy = (y - inY);
+		return dx * dx + dy * dy <= radius * radius;
+	}
 
 	@EqualsAndHashCode.Include
 	private String name;

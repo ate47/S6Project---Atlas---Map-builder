@@ -22,12 +22,6 @@ public class ToolSpawn extends Tool {
 	public static final Color SPAWN_COLOR = new Color(MapPanel.SPAWN_COLOR.getRGB(), false);
 	public static final Color SPAWN_INSIDE_COLOR = new Color(MapPanel.SPAWN_INSIDE_COLOR.getRGB(), false);
 
-	private static boolean isIn(int x, int y, int inX, int inY, int radius) {
-		int dx = (x - inX);
-		int dy = (y - inY);
-		return dx * dx + dy * dy <= radius * radius;
-	}
-
 	private boolean dragging = false;
 	private int x, y, w, h;
 	private SpawnLocation edit;
