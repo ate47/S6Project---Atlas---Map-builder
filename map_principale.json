@@ -1413,18 +1413,207 @@
   ],
   "spawnLocations": [
     {
+      "outside": false,
+      "x": 409,
+      "y": 1127,
+      "width": 105,
+      "height": 206
+    },
+    {
+      "outside": true,
+      "x": 3238,
+      "y": 325,
+      "width": 636,
+      "height": 894
+    },
+    {
+      "outside": false,
+      "x": 2001,
+      "y": 773,
+      "width": 239,
+      "height": 176
+    },
+    {
+      "outside": false,
+      "x": 1973,
+      "y": 1114,
+      "width": 249,
+      "height": 225
+    },
+    {
+      "outside": false,
+      "x": 1358,
+      "y": 780,
+      "width": 192,
+      "height": 100
+    },
+    {
+      "outside": false,
+      "x": 1126,
+      "y": 775,
+      "width": 226,
+      "height": 225
+    },
+    {
+      "outside": true,
+      "x": 2376,
+      "y": 372,
+      "width": 248,
+      "height": 238
+    },
+    {
+      "outside": true,
+      "x": 2099,
+      "y": 372,
+      "width": 277,
+      "height": 154
+    },
+    {
+      "outside": true,
+      "x": 2099,
+      "y": 608,
+      "width": 277,
+      "height": 2
+    },
+    {
+      "outside": true,
+      "x": 1367,
+      "y": 372,
+      "width": 732,
+      "height": 238
+    },
+    {
+      "outside": true,
+      "x": 1196,
+      "y": 372,
+      "width": 171,
+      "height": 27
+    },
+    {
+      "outside": true,
+      "x": 1196,
+      "y": 479,
+      "width": 171,
+      "height": 131
+    },
+    {
+      "outside": true,
+      "x": 949,
+      "y": 407,
+      "width": 126,
+      "height": 185
+    },
+    {
+      "outside": true,
+      "x": 949,
+      "y": 372,
+      "width": 0,
+      "height": 220
+    },
+    {
+      "outside": true,
+      "x": 1075,
+      "y": 407,
+      "width": 10,
+      "height": 203
+    },
+    {
+      "outside": true,
+      "x": 1085,
+      "y": 372,
+      "width": 111,
+      "height": 238
+    },
+    {
+      "outside": true,
+      "x": 2856,
+      "y": 187,
+      "width": 13,
+      "height": 1264
+    },
+    {
+      "outside": true,
+      "x": 2769,
+      "y": 187,
+      "width": 87,
+      "height": 58
+    },
+    {
+      "outside": true,
+      "x": 2769,
+      "y": 385,
+      "width": 87,
+      "height": 1066
+    },
+    {
+      "outside": true,
+      "x": 2626,
+      "y": 187,
+      "width": 143,
+      "height": 1264
+    },
+    {
+      "outside": true,
+      "x": 2803,
+      "y": 1455,
+      "width": 1305,
+      "height": 232
+    },
+    {
+      "outside": true,
+      "x": 2645,
+      "y": 1455,
+      "width": 158,
+      "height": 145
+    },
+    {
+      "outside": true,
+      "x": 2645,
+      "y": 1680,
+      "width": 158,
+      "height": 7
+    },
+    {
+      "outside": true,
+      "x": 1049,
+      "y": 1455,
+      "width": 1596,
+      "height": 232
+    },
+    {
+      "outside": true,
+      "x": 0,
+      "y": 742,
+      "width": 699,
+      "height": 178
+    },
+    {
+      "outside": true,
+      "x": 940,
+      "y": 11,
+      "width": 7,
+      "height": 581
+    },
+    {
+      "outside": true,
+      "x": 940,
+      "y": 720,
+      "width": 7,
+      "height": 387
+    },
+    {
+      "outside": true,
+      "x": 704,
+      "y": 11,
+      "width": 236,
+      "height": 1096
+    },
+    {
       "outside": true,
       "x": 640,
       "y": 1102,
       "width": 384,
       "height": 424
-    },
-    {
-      "outside": true,
-      "x": 1038,
-      "y": 1405,
-      "width": 554,
-      "height": 352
     },
     {
       "outside": true,
